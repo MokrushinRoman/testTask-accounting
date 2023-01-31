@@ -35,7 +35,7 @@ const calculateTeamFinanceReport = (salaries, team) => {
     const keys = Object.entries(salaries);
 
     keys.map(item => {
-      const optimisedSalaryName = item[0].toLocaleLowerCase();
+      const optimisedSalaryName = item[0].toLocaleLowerCase().trim();
       obj[optimisedSalaryName] = item[1];
     });
     return obj;
@@ -45,13 +45,13 @@ const calculateTeamFinanceReport = (salaries, team) => {
   const report = {};
 
   team.map(({ name, specialization }) => {
-    const optimisedSpecialization = specialization.toLocaleLowerCase();
+    const optimisedSpecialization = specialization.toLocaleLowerCase().trim();
     const positionSalaryInfo = optimisedSalaries[optimisedSpecialization];
     const capitalSpecialization =
       specialization[0].toUpperCase() + specialization.substring(1);
 
     if (positionSalaryInfo) {
-      const reportItem = `totalBudget${[capitalSpecialization]}`;
+      const reportItem = `totalBudget${[capitalSpecialization]}`.trim();
       const taxAmount = Math.floor(
         Number(positionSalaryInfo.tax.slice(0, -1))
       ); /* makes rounded tax */
