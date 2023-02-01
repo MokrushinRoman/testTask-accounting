@@ -52,9 +52,10 @@ const calculateTeamFinanceReport = (salaries, team) => {
 
     if (positionSalaryInfo) {
       const reportItem = `totalBudget${[capitalSpecialization]}`.trim();
-      const taxAmount = Math.floor(
-        Number(positionSalaryInfo.tax.slice(0, -1))
+      const taxAmount = Math.round(
+        Number(parseFloat(positionSalaryInfo.tax))
       ); /* makes rounded tax */
+      console.log(taxAmount);
       const netSalary = Math.floor(
         positionSalaryInfo.salary
       ); /* makes rounded salary */
@@ -69,9 +70,9 @@ const calculateTeamFinanceReport = (salaries, team) => {
         return;
       }
 
-      if (taxAmount < minTax || taxAmount > maxTax) {
+      if (!taxAmount || taxAmount < minTax || taxAmount > maxTax) {
         console.error(
-          `${capitalSpecialization} position has invalid value of tax! It must be between ${minTax} and ${maxTax}! Please fix it and try again!`
+          `${capitalSpecialization} position has invalid value of tax! It must be a number between ${minTax} and ${maxTax}! Please fix it and try again!`
         );
         return;
       }
@@ -102,4 +103,4 @@ const calculateTeamFinanceReport = (salaries, team) => {
 };
 
 // calculateTeamFinanceReport(salaries1, team1);
-calculateTeamFinanceReport(salaries2,team2)
+calculateTeamFinanceReport(salaries2, team2);
